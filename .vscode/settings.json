@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "stddef.h": "c",
+        "console.h": "c",
+        "stdbool.h": "c",
+        "pci_read.h": "c"
+    }
+}
