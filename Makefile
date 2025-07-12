@@ -4,10 +4,11 @@ KERNEL = build_dir/kernel.bin
 BOOT_DIR = boot
 CC_FLAGS = -ffreestanding -mno-red-zone -m32 -nostdlib -O2 -Wall -Wextra 
 BUILD_DIR = build_dir
-
+MKRESCUE = grub-mkrescue
 OBJECTS = \
 	$(BUILD_DIR)/kernel.o \
 	$(BUILD_DIR)/kernel.asm.o \
+	$(BUILD_DIR)/stack_protection.o \
 	$(BUILD_DIR)/max_memory.o \
 	$(BUILD_DIR)/keyboard.o \
 	$(BUILD_DIR)/vga.o \
@@ -125,8 +126,11 @@ $(BUILD_DIR)/ramfs_save.o: src/Disks/ramfs/ramfs_save.c
 $(BUILD_DIR)/string.o: src/utils/string.c
 	$(CC) $(CC_FLAGS) -c $< -o $@
 
+$(BUILD_DIR)/stack_protection.o: src/stack_protection.c
+	$(CC) $(CC_FLAGS) -c $< -o $@
+	
 iso: $(KERNEL)
-	grub2-mkrescue -o os.iso $(BOOT_DIR)/
+	$(MKRESCUE) -o os.iso $(BOOT_DIR)/
 
 copy:
 	cp $(KERNEL) $(BOOT_DIR)/

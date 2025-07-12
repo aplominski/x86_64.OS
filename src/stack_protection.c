@@ -1,4 +1,8 @@
-#include "sys/exit.h"
+
 __attribute__((noreturn,used)) void __stack_chk_fail(void) {
-    exit(1);
+   while(1);
+}
+
+__attribute__((noreturn,used)) void __stack_chk_fail_local(void) {
+    while(1);
 }
