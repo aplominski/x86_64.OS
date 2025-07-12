@@ -126,13 +126,13 @@ $(BUILD_DIR)/string.o: src/utils/string.c
 	$(CC) $(CC_FLAGS) -c $< -o $@
 
 iso: $(KERNEL)
-	grub2-mkrescue -o panix.iso $(BOOT_DIR)/
+	grub2-mkrescue -o os.iso $(BOOT_DIR)/
 
 copy:
 	cp $(KERNEL) $(BOOT_DIR)/
 
 qemu:
-	qemu-system-x86_64 -m 2 -cdrom panix.iso -boot d -drive file=disk.img,format=raw,if=ide,index=0
+	qemu-system-x86_64 -m 2 -cdrom os.iso -boot d -drive file=disk.img,format=raw,if=ide,index=0
 
 clean:
-	rm -rf $(BUILD_DIR) $(KERNEL) panix.iso $(BOOT_DIR)/kernel.bin
+	rm -rf $(BUILD_DIR) $(KERNEL) os.iso $(BOOT_DIR)/kernel.bin
